@@ -407,7 +407,7 @@ int smp3_main(int argc, char ** argv) {
 	pthread_detach(readerThread);
 	/* Step 1: we have to join on the sentinel thread. */
 	/* everything is finished, print out the number of operations performed */
-	fprintf(stdout, "Performed a total of %d operations\n", num_ops);
+	fprintf(stdout, "Performed a total of %d operations\n", (num_ops/2));
 	// TODO destroy semaphores and mutex
 	pthread_mutex_destroy(&buffer_lock);
 	return EXIT_SUCCESS;

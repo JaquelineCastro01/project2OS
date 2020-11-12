@@ -125,6 +125,9 @@ for all of the threads.  If our three functions were to operate on all
 expression in the buffer at once (not just the first expression), would
 the program generate incorrect output?  Why or why not?
 
+Yes the program will give the incorrect output because there will be data 
+inconsistency which will result in a race condition.
+
 
 Step 3: Critical Sections
 -------------------------
@@ -147,14 +150,23 @@ synchronization errors (e.g., race conditions, data corruption).
 
 Q3: For this step, what specific data structure(s) need(s) protection?
 Why?
+We need to protect the arrays and pointers in order for there to not be
+any inconsistencies or any memory leaks.
 
 Q4: What would happen if you had a busy-wait within one of your critical
 sections?  What if it is a loop with sched_yield()?
+
+The process may never go into the critical section being inefficient. Being in
+a loop with sched_yield() it will immediatly return a thread if
+there isnt one already waiting on the current.
 
 Q5: Why is it sometimes necessary to use the non-blocking
 pthread_mutex_trylock() instead of the blocking pthread_mutex_lock()?
 Think for example of a program that needs to acquire multiple mutexes at
 the same time.
+It is necessary to use the non-blocking pthread_mutex_trylock() because
+it is the nonblocking version. If the mutex is referenced by any thread
+the call returns immediately if not it will be locked.
 
 
 Step 4: Accounting
@@ -169,6 +181,9 @@ this variable is free from race conditions.
 
 Q6: Is a new mutex, separate from what you have in Step 3, required to
 correctly implement this behavior?  Why or why not?
+Yes it is because we need to reorder the memory access and it ensures that
+only one thread is executing a piece of code at a time limiting access to a data
+structure.
 
 
 Step 5: Performance
@@ -181,12 +196,19 @@ sched_yield() calls at the appropriate place inside these loops.
 
 Q7: Why is it important, even on single-processor machines, to keep the
 critical sections as small as possible?
+It is important to keep critical sections small as possible so that there wont 
+be any conflict in the updating of the bins in order for this the to occur
+the conflicting threads have to retry exection so it needs a critical
+section small enough for it to occur.
 
 Q8: Why is spin-waiting without yielding usually inefficient?
+It will cause starving in the process cause indefinite blocking because
+there wont be any yielding of priority of processes. 
 
 Q9: When might spin-waiting without yielding or blocking actually be
 *more* efficient?
-
+You can use this synchronization type when you are in a low-level scenario
+to avoid the expensive context switches and kernal trantions requiered.
 
 Step 6: Monitoring Progress
 ---------------------------
@@ -232,6 +254,9 @@ one of them fails.
 Q10:  You have to supply an initial value when creating a semaphore.
 Which value should you use to mimic the default functionality of a mutex?
 What would happen if you specified a larger value?
+If you do specify a larger value you might exceed the mamimum number of
+sempahores allowed having to reconfigure kernal to increase sempahore limit.
+
 
 
 Testing

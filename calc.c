@@ -121,8 +121,7 @@ void * adder(void * arg) {
 				// set buffer length and position
 				bufferlen = strlen(buffer);
 				i = startOffset + (strlen(string)) - 1;
-				// increment number of operations
-				num_ops++;
+				
 				
 			}
 		}

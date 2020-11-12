@@ -121,10 +121,11 @@ void * adder(void * arg) {
 				// set buffer length and position
 				bufferlen = strlen(buffer);
 				i = startOffset + (strlen(string)) - 1;
+				num_ops++;
 				
 				
 			}
-			num_ops++;
+			
 		}
 		
 		if (strlen(string) == 0 && bufferlen > 0) {
@@ -201,10 +202,11 @@ void * multiplier(void * arg) {
 				i = startOffset + ((int)strlen(string)) - 1;
 				// indicate that current thread has updated the buffer
 				// increment number of operations
+				num_ops++;
 				
 				
 			}
-			num_ops++;
+			
 		}
 		if (strlen(string) == 0 && bufferlen > 0) {
 			multiflag = 0;
@@ -274,10 +276,11 @@ void * degrouper(void * arg) {
 
 				bufferlen -= 2;
 				i = startOffset;
+				num_ops++;
 				
 				
 			}
-			num_ops++;
+			
 		}
 		if (len == bufferlen && bufferlen > 0) {
 			groupflag = 0;

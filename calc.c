@@ -273,9 +273,10 @@ void * degrouper(void * arg) {
 
 				bufferlen -= 2;
 				i = startOffset;
-				num_ops++;
+				
 				
 			}
+			num_ops++;
 		}
 		if (len == bufferlen && bufferlen > 0) {
 			groupflag = 0;

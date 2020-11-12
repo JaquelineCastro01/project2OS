@@ -123,19 +123,18 @@ void * adder(void * arg) {
 				i = startOffset + (strlen(string)) - 1;
 				// increment number of operations
 				num_ops++;
-				// if(buffer[0] != '\0')
-				//   printf("Add %s\n", buffer);
+				
 			}
 		}
 		
 		if (strlen(string) == 0 && bufferlen > 0) {
 			addflag = 0;
-			// printf("No progress can be made\n" );
-			// exit(EXIT_FAILURE);
+			
 		}
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
+	num_ops++;
 }
 /* Looks for a multiplication symbol "*" surrounded by two numbers, e.g.
 "5*6" and, if found, multiplies the two numbers and replaces the
@@ -202,7 +201,7 @@ void * multiplier(void * arg) {
 				i = startOffset + ((int)strlen(string)) - 1;
 				// indicate that current thread has updated the buffer
 				// increment number of operations
-				num_ops++;
+				
 				
 			}
 		}
@@ -212,6 +211,7 @@ void * multiplier(void * arg) {
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
+	num_ops++;
 }
 /* Looks for a number immediately surrounded by parentheses [e.g.
 "(56)"] in the buffer and, if found, removes the parentheses leaving
@@ -273,7 +273,7 @@ void * degrouper(void * arg) {
 
 				bufferlen -= 2;
 				i = startOffset;
-				num_ops++;
+				
 				
 			}
 		}
@@ -283,6 +283,7 @@ void * degrouper(void * arg) {
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
+	num_ops++;
 }
 /* sentinel waits for a number followed by a ; (e.g. "453;") to appear
 at the beginning of the buffer, indicating that the current
@@ -407,7 +408,7 @@ int smp3_main(int argc, char ** argv) {
 	pthread_detach(readerThread);
 	/* Step 1: we have to join on the sentinel thread. */
 	/* everything is finished, print out the number of operations performed */
-	fprintf(stdout, "Performed a total of %d operations\n", (num_ops/2));
+	fprintf(stdout, "Performed a total of %d operations\n", num_ops);
 	// TODO destroy semaphores and mutex
 	pthread_mutex_destroy(&buffer_lock);
 	return EXIT_SUCCESS;

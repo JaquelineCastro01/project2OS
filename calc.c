@@ -233,6 +233,7 @@ void * degrouper(void * arg) {
 		// check for '(' followed by a naked number followed by ')'
 	   // remove ')' by shifting the tail end of the expression
 	   // remove '(' by shifting the beginning of the expression
+		num_ops++;
 		for (i = 0; i < bufferlen; i++) {
 			len = bufferlen;
 			if (naked == 0) {
@@ -276,7 +277,7 @@ void * degrouper(void * arg) {
 				
 				
 			}
-			num_ops++;
+			
 		}
 		if (len == bufferlen && bufferlen > 0) {
 			groupflag = 0;

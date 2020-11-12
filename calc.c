@@ -275,7 +275,7 @@ void * degrouper(void * arg) {
 				// remove '(' by shifting the beginning of the expression
 				strcpy((buffer + startOffset), (buffer + startOffset + 1));
 				// set buffer length and position
-                                 num_ops++;
+                                 num_ops--;
 				bufferlen -= 2;
 				i = startOffset;
 				

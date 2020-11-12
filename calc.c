@@ -235,7 +235,7 @@ void * degrouper(void * arg) {
 	   // remove '(' by shifting the beginning of the expression
 		
 		for (i = 0; i < bufferlen; i++) {
-			num_ops++;
+			
 			len = bufferlen;
 			if (naked == 0) {
 				break;
@@ -252,6 +252,7 @@ void * degrouper(void * arg) {
 					}
 					j++;
 				}
+			num_ops++;
 			// check for '(' followed by a naked number followed by ')'
 			if (buffer[i] == '(' && isdigit(buffer[i + 1])) {
 

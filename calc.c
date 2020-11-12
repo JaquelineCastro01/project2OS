@@ -252,7 +252,7 @@ void * degrouper(void * arg) {
 					}
 					j++;
 				}
-			num_ops++;
+			
 			// check for '(' followed by a naked number followed by ')'
 			if (buffer[i] == '(' && isdigit(buffer[i + 1])) {
 
@@ -265,8 +265,10 @@ void * degrouper(void * arg) {
 						break;
 					}
 				}
+				
 				if (naked == 0)
 					continue;
+				num_ops++;
 				// remove ')' by shifting the tail end of the expression
 				strcpy((buffer + i), (buffer + i + 1));
 

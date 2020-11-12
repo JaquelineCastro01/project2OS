@@ -121,21 +121,21 @@ void * adder(void * arg) {
 				// set buffer length and position
 				bufferlen = strlen(buffer);
 				i = startOffset + (strlen(string)) - 1;
+				// increment number of operations
 				num_ops++;
-				
-				
+				// if(buffer[0] != '\0')
+				//   printf("Add %s\n", buffer);
 			}
-			
 		}
 		
 		if (strlen(string) == 0 && bufferlen > 0) {
 			addflag = 0;
-			
+			// printf("No progress can be made\n" );
+			// exit(EXIT_FAILURE);
 		}
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
-	
 }
 /* Looks for a multiplication symbol "*" surrounded by two numbers, e.g.
 "5*6" and, if found, multiplies the two numbers and replaces the
@@ -204,9 +204,7 @@ void * multiplier(void * arg) {
 				// increment number of operations
 				num_ops++;
 				
-				
 			}
-			
 		}
 		if (strlen(string) == 0 && bufferlen > 0) {
 			multiflag = 0;
@@ -214,7 +212,6 @@ void * multiplier(void * arg) {
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
-	
 }
 /* Looks for a number immediately surrounded by parentheses [e.g.
 "(56)"] in the buffer and, if found, removes the parentheses leaving
@@ -278,9 +275,7 @@ void * degrouper(void * arg) {
 				i = startOffset;
 				num_ops++;
 				
-				
 			}
-			
 		}
 		if (len == bufferlen && bufferlen > 0) {
 			groupflag = 0;
@@ -288,7 +283,6 @@ void * degrouper(void * arg) {
 		pthread_mutex_unlock(&buffer_lock);
 		sched_yield();
 	}
-	
 }
 /* sentinel waits for a number followed by a ; (e.g. "453;") to appear
 at the beginning of the buffer, indicating that the current

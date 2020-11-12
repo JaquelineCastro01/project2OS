@@ -268,14 +268,14 @@ void * degrouper(void * arg) {
 				
 				if (naked == 0)
 					continue;
-				num_ops++;
+				
 				// remove ')' by shifting the tail end of the expression
 				strcpy((buffer + i), (buffer + i + 1));
 
 				// remove '(' by shifting the beginning of the expression
 				strcpy((buffer + startOffset), (buffer + startOffset + 1));
 				// set buffer length and position
-
+                                 num_ops++;
 				bufferlen -= 2;
 				i = startOffset;
 				
